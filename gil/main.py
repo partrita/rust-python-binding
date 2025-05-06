@@ -25,4 +25,3 @@ t2.join()
 
 print(f"Py: {result[0]}")
 print(f"Rust: {result[1]}")
-

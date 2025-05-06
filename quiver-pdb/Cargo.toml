@@ -1,0 +1,19 @@
+[package]
+name = "quiver-pdb"
+version = "0.1.0"
+edition = "2021"
+description = "description"
+license = "Apache License"
+#license-file = "LICENSE.txt"
+repository = "https:repository"
+homepage = "https:repository"
+documentation = "https:repository/blob/main/README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "quiver_pdb"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = "0.24.0"
+#clap = { version = "4.0", features = ["derive"] }
