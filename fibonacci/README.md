@@ -26,17 +26,24 @@ maturin은 최소한의 구성으로 러스트로 작성한 파이썬 패키지�
 use pyo3::prelude::*;
 
 #[pyfunction]
-fn run(n: u64) -> u64 {
+fn fib(n: u64) -> u64 {
     if n < 2 {
         return n;
     }
-    run(n - 1) + run(n - 2)
+    let mut a = 0;
+    let mut b = 1;
+    for _ in 2..=n {
+        let temp = a + b;
+        a = b;
+        b = temp;
+    }
+    b
 }
 
 #[pymodule]
 fn fibonacci(m: &Bound<'_, PyModule>) -> PyResult<()> {
     let py = m.py();
-    m.add_function(wrap_pyfunction!(run, py)?)?;
+    m.add_function(wrap_pyfunction!(fib, py)?)?;
     Ok(())
 }
 ```
@@ -51,22 +58,54 @@ fn fibonacci(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 ```python
 import time
-from fibonacci import run
+from fibonacci import fib as rust_fib
 
-def pyrun(n: int):
-    if n < 2:
-        return n
-    return pyrun(n - 1) + pyrun(n - 2)
 
-N = 35
+def py_fib(n: int):
+    """파이썬으로 구현한 피보나치 수열 계산 함수 (재귀 방식)"""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return py_fib(n - 1) + py_fib(n - 2)
 
-start = time.time()
-result = pyrun(N)
-print(f"python: {time.time()-start:.2f}, result: {result}")
 
-start = time.time()
-result = run(N)
-print(f"rust: {time.time()-start:.2f}, result: {result}")
+N = 42
+
+# 파이썬으로 계산한 피보나치 수열 결과 및 시간 측정
+start_python = time.time()
+python_result = py_fib(N)
+python_time = time.time() - start_python
+print(
+    f"Python으로 계산한 결과 (N={N}): {python_result} (소요 시간: {python_time:.2f} 초)"
+)
+
+# Rust로 계산한 피보나치 수열 결과 및 시간 측정
+start_rust = time.time()
+rust_result = rust_fib(N)
+rust_time = time.time() - start_rust
+print(f"Rust로 계산한 결과 (N={N}): {rust_result} (소요 시간: {rust_time:.2f} 초)")
+
+# 두 결과가 동일한지 확인
+if python_result == rust_result:
+    print("파이썬과 Rust 계산 결과가 동일합니다.")
+else:
+    print("파이썬과 Rust 계산 결과가 다릅니다!")
+```
+
+코드 실행
+
+```bash
+uv run python main.py
+```
+
+결과
+
+```
+Python으로 계산한 결과 (N=42): 267914296 (소요 시간: 21.13 초)
+Rust로 계산한 결과 (N=42): 267914296 (소요 시간: 0.00 초)
+파이썬과 Rust 계산 결과가 동일합니다.
 ```
 
 ## 릴리즈 모드로 빌드해보기

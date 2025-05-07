@@ -1,16 +1,24 @@
 use pyo3::prelude::*;
 
 #[pyfunction]
-fn run(n: u64) -> u64 {
+fn fib(n: u64) -> u64 {
     if n < 2 {
         return n;
     }
-    run(n - 1) + run(n - 2)
+    let mut a = 0;
+    let mut b = 1;
+    for _ in 2..=n {
+        let temp = a + b;
+        a = b;
+        b = temp;
+    }
+    b
 }
 
 #[pymodule]
 fn fibonacci(m: &Bound<'_, PyModule>) -> PyResult<()> {
     let py = m.py();
-    m.add_function(wrap_pyfunction!(run, py)?)?;
+    m.add_function(wrap_pyfunction!(fib, py)?)?;
     Ok(())
 }
+
