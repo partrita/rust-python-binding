@@ -1,3 +1,5 @@
+이 프로젝트는 Rust 공식 책에 나오는 '숫자 맞추기 게임'을 Python 모듈로 래핑하는 예제입니다. PyO3와 Maturin을 사용하여 Rust로 작성된 대화형 콘솔 게임을 Python에서 직접 호출할 수 있는 함수로 만드는 전체 과정을 보여줍니다. 사용자의 입력을 받고, 비교하며, 결과를 출력하는 로직이 포함되어 있습니다.
+
 In this tutorial we will wrap a version of the guessing game from The Rust Book to run in Python using pyo3.
 
 # Create a new Rust project
