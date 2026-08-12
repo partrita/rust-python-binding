@@ -9,4 +9,4 @@ name = "fibonacci"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.24.0"
+pyo3 = "0.29.0"
