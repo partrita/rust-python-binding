@@ -15,5 +15,5 @@ name = "quiver_pdb"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.24.0"
+pyo3 = "0.29.0"
 #clap = { version = "4.0", features = ["derive"] }
