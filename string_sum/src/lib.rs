@@ -7,8 +7,8 @@ fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
 }
 
 // You can create a module using #[pymodule]:
-#[pyfunction]
-fn double(x: usize) -> usize {
+#[pyfunction(name = "double")]
+fn double_impl(x: usize) -> usize {
     x * 2
 }
 
@@ -23,7 +23,7 @@ fn string_sum(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// This module is implemented in Rust.
 #[pymodule]
 fn double(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(double, m)?)?;
+    m.add_function(wrap_pyfunction!(double_impl, m)?)?;
     Ok(())
 }
 
