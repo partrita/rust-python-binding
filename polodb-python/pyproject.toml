@@ -3,9 +3,9 @@ name = "polodb-python"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "Apache-2.0" }
-dependencies = ["tomli>=2.0.2"]
+dependencies = ["tomli>=2.0.2; python_version < '3.11'"]
 
 [build-system]
 requires = ["maturin>=1.8,<2.0"]
@@ -14,13 +14,12 @@ build-backend = "maturin"
 
 [dependency-groups]
 dev = [
-    "cibuildwheel>=2.21.3",
+    "cibuildwheel>=2.23.0",
     "ipdb>=0.13.13",
     "ipython>=8.18.1",
-    "maturin>=1.7.4",
-    "pip>=24.3.1",
-    "pytest>=8.3.3",
-    "wheel>=0.44.0",
+    "maturin>=1.8.3",
+    "pytest>=9.0.3",
+    "wheel>=0.45.0",
 ]
 
 [tool.uv]
