@@ -4,13 +4,7 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.9"
-license = { file = "LICENSE.txt" }
-classifiers = [
-    "Programming Language :: Rust",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
-]
-dynamic = ["version"]
+license = { text = "Apache-2.0" }
 dependencies = ["tomli>=2.0.2"]
 
 [build-system]
@@ -40,5 +34,5 @@ pythonpath = ["."]
 
 [tool.maturin]
 include = ["polodb/**/*"]
-sdist-include = ["Cargo.toml", "README.md", "LICENSE.txt"]
+sdist-include = ["Cargo.toml", "README.md"]
 features = ["pyo3/extension-module"]
